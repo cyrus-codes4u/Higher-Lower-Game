@@ -2,7 +2,8 @@
 from game_data import data
 import art
 import random
-#Print the logo
+from replit import clear
+
 print(art.logo)
 
 def select_account():
@@ -18,25 +19,27 @@ def check_answer(guess, person_1, person_2):
     return guess == "b"
 
 def game():
-  person_1 = select_account()
   person_2 = select_account()
   playing = True
   score = 0
   
   while(playing):
+    person_1 = person_2
+    person_2 = select_account()
     
-    if score > 0:
-      print(f"Correct! Current score: {score}")
-    
+    while person_1 == person_2:
+      person_2 = select_account()
+
     print(f"Compare A: {format(person_1)}")
     print(art.vs)
     print(f"Against B: {format(person_2)}")
 
     answer = input("Who has more followers, A or B? ").lower()
 
+    clear()
+    print(art.logo)
     if check_answer(answer, person_1, person_2):
-      person_1 = person_2
-      person_2 = select_account()
+      print(f"Correct! Current score: {score}")
       score += 1
     else:
       playing = False
